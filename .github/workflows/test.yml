@@ -1,26 +1,24 @@
 name: test
 
-on: 
-    push:
-        branches: [ main ]
-    pull_request:
-        branches: [main]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                nodes-version: [12.x, 14.x, 20.x]
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        nodes-version: [12.x, 14.x]
 
-        steps: 
-        - uses: actions/checkout@v3
-        - name: Use Node.js ${{ matrix.nodes-version }}
-          uses: actions/setup-node@v2
-          with: 
-            node-version: ${{matrix.nodes-version}}
-            cache: "npm"
-        - run: npm ci
-        - run: npm test
-
-        
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.nodes-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{matrix.nodes-version}}
+          cache: "npm"
+      - run: npm ci
+      - run: npm test
